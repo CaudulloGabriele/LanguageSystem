@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 /// <summary>
@@ -14,14 +15,31 @@ public class LanguageManager : MonoBehaviour
     public const int COUNT_LANGUAGES = 2;
 
 
-	#region Variables
+    #region Variables
 
-	[Tooltip("Only instance of the LanguageManager")]
-    public static LanguageManager inst;
+    [Tooltip("Only instance of the LanguageManager")]
+    private static LanguageManager instance;
+    public static LanguageManager inst
+    {
+        get
+        {
+
+            if (!instance) { instance = FindObjectOfType<LanguageManager>(); }
+
+            return instance;
+        }
+        
+        private set { instance = value; }
+    
+    }
 
 
     [Tooltip("List of all the texts that need to change their texts when the language is changed")]
     private readonly List<TextLanguageChange> textsToChangeLanguage = new();
+
+    [Tooltip("Defines all the languages of the game")]
+    [SerializeField]
+    private GameLanguages gameLanguages;
 
     [Tooltip("Reference to the dropdown list for changing language")]
 	[SerializeField]
@@ -43,8 +61,8 @@ public class LanguageManager : MonoBehaviour
 		//updates the options of the dropdown list for changing languages
 		foreach (TMP_Dropdown dropdown in languageDropdownLists)
 		{
-            int nLanguages = GameLanguages.GetAmountOfLanguages();
-            string[] languageOptions = GameLanguages.GetLanguageOptions();
+            int nLanguages = gameLanguages.GetAmountOfLanguages();
+            string[] languageOptions = gameLanguages.GetLanguageOptions();
 
             if (dropdown)
             {
@@ -70,7 +88,7 @@ public class LanguageManager : MonoBehaviour
 	private void Awake()
     {
 		//Singleton pattern
-		if (inst) { Destroy(gameObject); return; }
+		if (inst && (inst != this)) { Destroy(gameObject); return; }
 		else { inst = this; }
 
     }
@@ -135,5 +153,10 @@ public class LanguageManager : MonoBehaviour
 	}
 
     #endregion
+
+
+    public static int GetAmountOfLanguages() { return inst.gameLanguages.GetAmountOfLanguages(); }
+
+    public static string[] GetLanguageOptions() { return inst.gameLanguages.GetLanguageOptions(); }
 
 }

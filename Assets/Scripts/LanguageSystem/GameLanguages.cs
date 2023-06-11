@@ -1,13 +1,16 @@
+using System;
 using UnityEngine;
 
 /// <summary>
 /// Class defining the languages present in the game
 /// </summary>
-public static class GameLanguages
+[Serializable]
+public class GameLanguages
 {
     /// <summary>
     /// Class defining a language in the game
     /// </summary>
+    [Serializable]
     private class Language
     {
         [Tooltip("Indicates the name of the language, which will be used in the dropdown list and in the editor as name of this language")]
@@ -23,7 +26,8 @@ public static class GameLanguages
 
 
     [Tooltip("Array containing all the game's languages options")]
-    private static readonly Language[] languages =
+    [SerializeField]
+    private Language[] languages =
     {
         new Language("English"),
         new Language("Italian"),
@@ -35,7 +39,7 @@ public static class GameLanguages
     /// Returns the array of all the game's languages options
     /// </summary>
     /// <returns></returns>
-    public static string[] GetLanguageOptions()
+    public string[] GetLanguageOptions()
     {
         string[] options = new string[languages.Length];
         for (int i = 0; i < languages.Length; ++i) { options[i] = languages[i].thisOption; }
@@ -48,6 +52,6 @@ public static class GameLanguages
     /// Returns the number of languages in the game
     /// </summary>
     /// <returns></returns>
-    public static int GetAmountOfLanguages() { return languages.Length; }
+    public int GetAmountOfLanguages() { return languages.Length; }
 
 }

@@ -35,11 +35,11 @@ public class MultiLanguageString
     public void OnValidate()
     {
         //if the number of languages in the game changed, resizes the array of strings
-        int nLanguages = GameLanguages.GetAmountOfLanguages();
+        int nLanguages = LanguageManager.GetAmountOfLanguages();
         if (stringsAllLang == null) { stringsAllLang = new LanguageString[nLanguages]; }
         if (stringsAllLang.Length != nLanguages) { Array.Resize(ref stringsAllLang, nLanguages); }
         //updates the array of strings in all languages based on the number of languages in the game
-        string[] languages = GameLanguages.GetLanguageOptions();
+        string[] languages = LanguageManager.GetLanguageOptions();
         for (int i = 0; i < nLanguages; ++i)
         {
             string languageName = languages[i];
@@ -63,7 +63,7 @@ public class MultiLanguageString
     /// <param name="strAllLang"></param>
     public MultiLanguageString(string[] strAllLang)
     {
-        int nLanguages = GameLanguages.GetAmountOfLanguages();
+        int nLanguages = LanguageManager.GetAmountOfLanguages();
         for (int i = 0; i < nLanguages; ++i) { SetString(i, strAllLang[i]); }
 
     }
@@ -134,7 +134,7 @@ public class MultiLanguageString
     /// <returns></returns>
     public static MultiLanguageString operator +(MultiLanguageString str, MultiLanguageString toAdd)
     {
-        int nLanguages = GameLanguages.GetAmountOfLanguages();
+        int nLanguages = LanguageManager.GetAmountOfLanguages();
         for (int i = 0; i < nLanguages; ++i) { str.stringsAllLang[i].langString += toAdd.stringsAllLang[i].langString; }
 
         return str;
