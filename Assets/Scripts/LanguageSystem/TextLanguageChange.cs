@@ -16,7 +16,7 @@ public class TextLanguageChange : MonoBehaviour
         get
         {
             //if the static reference to the LanguageManager instance is still null, gets it
-            if (!lm) { lm = LanguageManager.inst; }
+            if (!lm) { lm = LanguageManager.Inst; }
 
             return lm;
         }
@@ -65,7 +65,7 @@ public class TextLanguageChange : MonoBehaviour
     private void OnValidate()
     {
         //validates the MultiLanguageString of this text
-        textAllLang.OnValidate();
+        if (LanguageManager.InitializationComplete) { textAllLang.OnValidate();}
 
     }
 

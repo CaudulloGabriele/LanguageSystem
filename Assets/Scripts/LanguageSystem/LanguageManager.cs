@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 
 /// <summary>
@@ -19,7 +18,10 @@ public class LanguageManager : MonoBehaviour
 
     [Tooltip("Only instance of the LanguageManager")]
     private static LanguageManager instance;
-    public static LanguageManager inst
+    /// <summary>
+    /// Only instance of the LanguageManager
+    /// </summary>
+    public static LanguageManager Inst
     {
         get
         {
@@ -48,6 +50,12 @@ public class LanguageManager : MonoBehaviour
 
     [Tooltip("Indicates the current language:\n 0 = ENGLISH\n 1 = ITALIAN")]
 	private int currentLanguage;
+
+
+    /// <summary>
+    /// Indicates whether or not the LanguageManager has initialized completely
+    /// </summary>
+    public static bool InitializationComplete { get; private set; }
 
 	#endregion
 
@@ -83,13 +91,16 @@ public class LanguageManager : MonoBehaviour
 
         }
 
+
+        InitializationComplete = true;
+
 	}
 
 	private void Awake()
     {
 		//Singleton pattern
-		if (inst && (inst != this)) { Destroy(gameObject); return; }
-		else { inst = this; }
+		if (Inst && (Inst != this)) { Destroy(gameObject); return; }
+		else { Inst = this; }
 
     }
 
@@ -155,8 +166,15 @@ public class LanguageManager : MonoBehaviour
     #endregion
 
 
-    public static int GetAmountOfLanguages() { return inst.gameLanguages.GetAmountOfLanguages(); }
-
-    public static string[] GetLanguageOptions() { return inst.gameLanguages.GetLanguageOptions(); }
+    /// <summary>
+    /// Returns the number of languages present in the game
+    /// </summary>
+    /// <returns></returns>
+    public static int GetAmountOfLanguages() { return Inst.gameLanguages.GetAmountOfLanguages(); }
+    /// <summary>
+    /// Returns an array containing the names of all the game's language options
+    /// </summary>
+    /// <returns></returns>
+    public static string[] GetLanguageOptions() { return Inst.gameLanguages.GetLanguageOptions(); }
 
 }
