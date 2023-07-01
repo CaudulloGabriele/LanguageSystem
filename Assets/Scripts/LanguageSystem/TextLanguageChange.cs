@@ -11,12 +11,12 @@ public class TextLanguageChange : MonoBehaviour
 
     [Tooltip("Reference to tha only instance of the LanguageManager")]
     private static LanguageManager lm;
-    private static LanguageManager refLanguageManager
+    private static LanguageManager RefLanguageManager
     {
         get
         {
             //if the static reference to the LanguageManager instance is still null, gets it
-            if (!lm) { lm = LanguageManager.Inst; }
+            if (!lm) { lm = LanguageManager.Instance; }
 
             return lm;
         }
@@ -37,27 +37,6 @@ public class TextLanguageChange : MonoBehaviour
     [SerializeField]
     private MultiLanguageString textAllLang;
 
-
-    /*
-    [Header("No-Text Button Change")]
-
-    [Tooltip("Indicates if the thing to change language of is actually a button with no text (in which case, only the image is changed)")]
-    [SerializeField]
-    private bool isNoTextButton;
-
-    [Tooltip("Reference to the button to change image of")]
-    [SerializeField]
-    private Image buttonImageToChange = default;
-
-
-    [Tooltip("Reference to the sprite to set as image of the button when language is set to english")]
-    [SerializeField]
-    private Sprite englishButton;
-    [Tooltip("Reference to the sprite to set as image of the button when language is set to italian")]
-    [SerializeField]
-    private Sprite italianButton;
-    */
-
     #endregion
 
     #region MonoBehaviour Methods
@@ -69,23 +48,13 @@ public class TextLanguageChange : MonoBehaviour
 
     }
 
-    private void Awake()
-    {
-        /*
-        //if a text has to be changed and no reference is set, automatically gets it
-        if (!isNoTextButton && textToChange == null) { textToChange = GetComponent<TextMeshProUGUI>(); }
-        //otherwise, if a button has to be changed and no reference is set, automatically gets it
-        else if (isNoTextButton && buttonImageToChange == null) { buttonImageToChange = GetComponent<Image>(); }
-        */
-    }
-
     private void Start()
     {
         //adds this text in the list of the LanguageManager
-        refLanguageManager.AddTextToList(this);
+        RefLanguageManager.AddTextToList(this);
 
         //then, changes own language based on the current language
-        ChangeTextLanguage(lm.GetCurrentLanguage());
+        ChangeTextLanguage(RefLanguageManager.GetCurrentLanguage());
 
     }
 
@@ -108,7 +77,7 @@ public class TextLanguageChange : MonoBehaviour
     {
         textAllLang = newText;
         //then, changes the text currently shown on this text based on the current language
-        ChangeTextLanguage(refLanguageManager.GetCurrentLanguage());
+        ChangeTextLanguage(RefLanguageManager.GetCurrentLanguage());
 
     }
     /// <summary>
@@ -153,23 +122,21 @@ public class TextLanguageChange : MonoBehaviour
 
     #endregion
 
-
-    /// <summary>
-    /// Allows to change the color of this MultiLanguage-Text
-    /// </summary>
-    /// <param name="newColor"></param>
-    public void ChangeTextColor(Color newColor) { textToChange.color = newColor; }
-
-
     #region Getter Methods
 
     /// <summary>
-    /// Returns this english text
+    /// Returns this text in the currently set game's language
+    /// </summary>
+    /// <returns></returns>
+    public string GetCurrentLanguageText() { return textAllLang.GetString(RefLanguageManager.GetCurrentLanguage()); }
+
+    /// <summary>
+    /// Returns this text in english
     /// </summary>
     /// <returns></returns>
     public string GetEnglishText() { return textAllLang.GetString(0); }
     /// <summary>
-    /// Returns this italian text
+    /// Returns this text in italian
     /// </summary>
     /// <returns></returns>
     public string GetItalianText() { return textAllLang.GetString(1); }

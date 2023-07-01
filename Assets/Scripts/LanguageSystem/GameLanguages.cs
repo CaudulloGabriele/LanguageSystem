@@ -17,7 +17,7 @@ public class GameLanguages
         public string thisOption;
 
         /// <summary>
-        /// Constructor method for this language option
+        /// Constructor method for a language option
         /// </summary>
         /// <param name="option"></param>
         public Language(string option) { thisOption = option; }

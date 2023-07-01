@@ -44,10 +44,7 @@ public class MultiLanguageString
         {
             string languageName = languages[i];
             //if the looped LanguageString is null, it is initialized
-            if (stringsAllLang[i] == null)
-            {
-                stringsAllLang[i] = new() { langString = ("String in '" + languageName + "'") };
-            }
+            if (stringsAllLang[i] == null) { stringsAllLang[i] = new() { langString = ("String in '" + languageName + "'") }; }
 
             //updates the language name of the looped LanguageString
             stringsAllLang[i].languageName = languageName;
@@ -56,6 +53,8 @@ public class MultiLanguageString
 
     }
 
+
+    #region Constructor Methods
 
     /// <summary>
     /// Constructor method for a multi-language string
@@ -74,6 +73,8 @@ public class MultiLanguageString
     /// <param name="str"></param>
     public MultiLanguageString(int languageIndex, string str) { SetString(languageIndex, str); }
 
+    #endregion
+
 
     #region Getter Methods
 
@@ -86,10 +87,10 @@ public class MultiLanguageString
     {
         string str;
 
-        if (!ReceivedWronLanguageIndex(language)) { str = stringsAllLang[language].langString; }
+        if (!ReceivedWrongLanguageIndex(language)) { str = stringsAllLang[language].langString; }
         else
         {
-            str = "error";
+            str = "ERROR";
             Debug.LogError("ERROR WHEN TRYING TO RECEIVE MULTI-LANGUAGE STRING. LANGUAGE RECEIVED: " + language);
         }
 
@@ -107,6 +108,13 @@ public class MultiLanguageString
         return str.Length;
     }
 
+    /// <summary>
+    /// Returns true if the received language index is indicating a non-existent language
+    /// </summary>
+    /// <param name="language"></param>
+    /// <returns></returns>
+    private bool ReceivedWrongLanguageIndex(int language) { return ((language < 0) || (language >= stringsAllLang.Length)); }
+
     #endregion
 
     #region Setter Methods
@@ -119,8 +127,9 @@ public class MultiLanguageString
     public void SetString(int language, string str)
     {
         //Debug.Log("INDEX: " + language + " || ARRAY: " + stringsAllLang + " || NULL ? " + (stringsAllLang == null));
+
         if (stringsAllLang == null) { return; }
-        if (!ReceivedWronLanguageIndex(language)) { stringsAllLang[language].langString = str; }
+        if (!ReceivedWrongLanguageIndex(language)) { stringsAllLang[language].langString = str; }
 
         else { Debug.LogError("ERROR WHEN TRYING TO SET MULTI-LANGUAGE STRING. LANGUAGE RECEIVED: " + language); }
 
@@ -134,18 +143,12 @@ public class MultiLanguageString
     /// <returns></returns>
     public static MultiLanguageString operator +(MultiLanguageString str, MultiLanguageString toAdd)
     {
+        //adds each string of every language of the 'MultiLanguageString's that are being added together
         int nLanguages = LanguageManager.GetAmountOfLanguages();
         for (int i = 0; i < nLanguages; ++i) { str.stringsAllLang[i].langString += toAdd.stringsAllLang[i].langString; }
 
         return str;
     }
-
-    /// <summary>
-    /// Returns true if the received language index is indicating a non-existent language
-    /// </summary>
-    /// <param name="language"></param>
-    /// <returns></returns>
-    private bool ReceivedWronLanguageIndex(int language) { return ((language < 0) || (language >= stringsAllLang.Length)); }
 
     #endregion
 

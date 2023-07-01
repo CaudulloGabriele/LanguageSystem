@@ -21,11 +21,11 @@ public class LanguageManager : MonoBehaviour
     /// <summary>
     /// Only instance of the LanguageManager
     /// </summary>
-    public static LanguageManager Inst
+    public static LanguageManager Instance
     {
         get
         {
-
+            //if no instance is set, searches for it in the scene
             if (!instance) { instance = FindObjectOfType<LanguageManager>(); }
 
             return instance;
@@ -53,7 +53,7 @@ public class LanguageManager : MonoBehaviour
 
 
     /// <summary>
-    /// Indicates whether or not the LanguageManager has initialized completely
+    /// (EDITOR ONLY)Indicates whether or not the LanguageManager's initialization is complete
     /// </summary>
     public static bool InitializationComplete { get; private set; }
 
@@ -92,15 +92,16 @@ public class LanguageManager : MonoBehaviour
         }
 
 
+        //comunicates the initialization of the LanguageManager has been completed
         InitializationComplete = true;
 
 	}
 
 	private void Awake()
     {
-		//Singleton pattern
-		if (Inst && (Inst != this)) { Destroy(gameObject); return; }
-		else { Inst = this; }
+        //Singleton pattern
+        if (!Instance) { Instance = this; }
+        else if (Instance != this) { Destroy(this); return; }
 
     }
 
@@ -120,7 +121,7 @@ public class LanguageManager : MonoBehaviour
 
         }
 
-        //Debugging.ShowLog(("Saved language: " + settingsManager.savedLanguage), 0);
+        //Debug.Log("Saved language: " + settingsManager.savedLanguage);
     }
 
     #endregion
@@ -141,10 +142,10 @@ public class LanguageManager : MonoBehaviour
         {
 			textsToChangeLanguage[i].ChangeTextLanguage(language);
 
-			//Debugging.ShowLog(("Changed language of: " + textsToChangeLanguage[i].name), 0);
+			//Debug.Log("Changed language of: " + textsToChangeLanguage[i].name);
 		}
 
-        //Debugging.ShowLog(("Language changed in: " + language), 0);
+        //Debug.Log("Language changed in: " + language);
     }
 	/// <summary>
 	/// Returns the currently set language
@@ -170,11 +171,11 @@ public class LanguageManager : MonoBehaviour
     /// Returns the number of languages present in the game
     /// </summary>
     /// <returns></returns>
-    public static int GetAmountOfLanguages() { return Inst.gameLanguages.GetAmountOfLanguages(); }
+    public static int GetAmountOfLanguages() { return Instance.gameLanguages.GetAmountOfLanguages(); }
     /// <summary>
     /// Returns an array containing the names of all the game's language options
     /// </summary>
     /// <returns></returns>
-    public static string[] GetLanguageOptions() { return Inst.gameLanguages.GetLanguageOptions(); }
+    public static string[] GetLanguageOptions() { return Instance.gameLanguages.GetLanguageOptions(); }
 
 }
