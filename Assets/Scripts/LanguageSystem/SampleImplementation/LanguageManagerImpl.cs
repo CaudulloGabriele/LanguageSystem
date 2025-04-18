@@ -1,6 +1,7 @@
 using UnityEngine;
 
-public class LanguageManagerImpl : BaseLanguageManager
+public class LanguageManagerImpl
+    : BaseLanguageManager
 {
 
     private const string SAVED_LANGUAGE_VALUE_NAME = "savedLanguage";
