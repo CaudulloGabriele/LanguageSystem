@@ -43,7 +43,7 @@ public abstract class BaseLanguageManager
     /// <summary>
     /// Indicates the game's current language
     /// </summary>
-    private static Language currentLanguage = Language.English;
+    private static Language currentLanguage = 0;
 
     #endregion
 

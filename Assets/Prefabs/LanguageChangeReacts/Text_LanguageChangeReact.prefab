@@ -62,10 +62,10 @@ MonoBehaviour:
   languageValues:
   - Name: English
     Language: 0
-    Value: New Text for 'English'
+    Value: English Text
   - Name: Italiano
     Language: 1
-    Value: New Text for 'Italiano'
+    Value: Testo Italiano
   objToChange: {fileID: 4318723062983322254}
 --- !u!114 &4318723062983322254
 MonoBehaviour:

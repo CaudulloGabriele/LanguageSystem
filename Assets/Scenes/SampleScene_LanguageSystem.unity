@@ -671,13 +671,13 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1763240616}
     m_Modifications:
-    - target: {fileID: 4318723062983322253, guid: 1a0b5fdea7ed8c44e875cc836cb86a1d, type: 3}
-      propertyPath: languageValues.Array.data[0].Value
-      value: TEST ENGLISH
+    - target: {fileID: 4318723062983322254, guid: 1a0b5fdea7ed8c44e875cc836cb86a1d, type: 3}
+      propertyPath: m_VerticalAlignment
+      value: 512
       objectReference: {fileID: 0}
-    - target: {fileID: 4318723062983322253, guid: 1a0b5fdea7ed8c44e875cc836cb86a1d, type: 3}
-      propertyPath: languageValues.Array.data[1].Value
-      value: TEST ITALIANO
+    - target: {fileID: 4318723062983322254, guid: 1a0b5fdea7ed8c44e875cc836cb86a1d, type: 3}
+      propertyPath: m_HorizontalAlignment
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4318723062983322256, guid: 1a0b5fdea7ed8c44e875cc836cb86a1d, type: 3}
       propertyPath: m_Name

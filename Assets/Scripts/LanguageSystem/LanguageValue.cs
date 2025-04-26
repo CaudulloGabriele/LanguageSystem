@@ -20,6 +20,7 @@ public class LanguageValue<TValue>
 
 
     [Tooltip("Language this value is used for")]
+    [HideInInspector]
     public Language Language;
 
 
